@@ -78,6 +78,13 @@ sudo sh  -c echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
     https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 #sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+#install ca-certificates.
+
+#sudo apt install ca-certificates
+
+#then install Jenkins from the official documentation
+
+#https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
 sudo apt update
 sudo apt install -y jenkins
 systemctl daemon-reload
