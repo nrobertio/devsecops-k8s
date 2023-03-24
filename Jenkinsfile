@@ -8,4 +8,6 @@ pipeline {
               archive 'target/*.jar' 
         }   
     }
+  } 
 }
+
