@@ -78,6 +78,7 @@ sudo sh  -c echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
     https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 #sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+#to resolve an issue with jenkins
 #install ca-certificates.
 
 #sudo apt install ca-certificates
