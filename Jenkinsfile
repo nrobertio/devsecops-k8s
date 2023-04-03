@@ -40,7 +40,7 @@ pipeline {
 
     stage('SonarQube - SAST') {
       steps {
-        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://34.134.96.72:9000 -Dsonar.login=0925129cf435c63164d3e63c9f9d88ea9f9d7f05"
+        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://34.134.96.72:9000 -Dsonar.login=6a5e7a212d90778db5e609ca44b2179d661c1d72"
       }
     }
 
