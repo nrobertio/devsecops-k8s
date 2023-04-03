@@ -10,7 +10,7 @@ pipeline {
       }
     }
 
-    stage('Unit Tests - JUnit and Jacoco') {
+    stage('Unit Tests - JUnit and JaCoCo') {
       steps {
         sh "mvn test"
       }
@@ -31,6 +31,7 @@ pipeline {
         }
       }
     }
+
     stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
@@ -39,5 +40,7 @@ pipeline {
         }
       }
     }
+    
   }
+
 }
