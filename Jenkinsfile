@@ -1,3 +1,8 @@
+## Run SonarQube as a Docker Container
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:8.9.1-community
+
+## Jenkinsfile with SonarQube and QualityGate Stage
+### Replace the host, port, token values
 pipeline {
   agent any
 
@@ -22,6 +27,23 @@ pipeline {
       }
     }
 
+    stage('Mutation Tests - PIT') {
+      steps {
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+      post {
+        always {
+          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        }
+      }
+    }
+
+    stage('SonarQube - SAST') {
+      steps {
+        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://34.134.96.72:9000 -Dsonar.login=0925129cf435c63164d3e63c9f9d88ea9f9d7f05"
+      }
+    }
+
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
@@ -30,7 +52,17 @@ pipeline {
           sh 'docker push roni580/numeric-app:""$GIT_COMMIT""'
         }
       }
-    } 
+    }
+
+    stage('Kubernetes Deployment - DEV') {
+      steps {
+        withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh "sed -i 's#replace#roni580/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+          sh "kubectl apply -f k8s_deployment_service.yaml"
+        }
+      }
+    }
+
   }
 
 }
