@@ -16,7 +16,7 @@ spec:
         app: devsecops
     spec:
       containers:
-      - image: roni580/numeric-app
+      - image: replace
         name: devsecops-container
 ---
 apiVersion: v1
